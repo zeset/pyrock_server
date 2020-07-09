@@ -72,7 +72,7 @@ class Server():
         self.process.sendline('clear @a')
         self.process.sendline(f'tp @a {outside_x} {outside_y} {outside_z}')
 
-    def arena(self, prep_time=60, duration=300, ):
+    def arena(self, prep_time=60, duration=300):
         self.prep_time = prep_time
         self.duration = duration
         self.arena_countdown()

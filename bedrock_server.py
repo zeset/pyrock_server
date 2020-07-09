@@ -7,17 +7,10 @@ PATH_TO_SOFTWARE = 'bedrock_server'
 
 LINEBREAK = r'.+'
 
-ARENA_COORDINATES = {
-    'x': -18,
-    'y': 68,
-    'z': 239
-}
+ARENA_COORDINATES = (-18, 68, 239)
 
-ARENA_OUTSIDE_COORDINATES = {
-    'x': -2,
-    'y': 68,
-    'z': 239
-}
+ARENA_OUTSIDE_COORDINATES = (-2, 68, 239)
+
 
 class Server():
     running = False
@@ -61,7 +54,7 @@ class Server():
             time.sleep(1)
 
     def arena_preparation(self):
-        arena_x, arena_y, arena_z = **ARENA_COORDINATES
+        arena_x, arena_y, arena_z = ARENA_COORDINATES
         self.process.sendline('clear @a')
         self.process.sendline('give @a diamond_sword 1')
         self.process.sendline('give @a leather_helmet 1')
@@ -73,9 +66,7 @@ class Server():
         self.process.sendline(f'tp @a {arena_x} {arena_y} {arena_z}')
 
     def return_to_normal(self):
-        outside_x = ARENA_OUTSIDE_COORDINATES['x']
-        outside_y = ARENA_OUTSIDE_COORDINATES['y']
-        outside_z = ARENA_OUTSIDE_COORDINATES['z']
+        outside_x, outside_y, outside_z = ARENA_OUTSIDE_COORDINATES
         self.process.sendline('gamerule keepinventory false')
         self.process.sendline('gamerule pvp false')
         self.process.sendline('clear @a')

@@ -1,5 +1,8 @@
+aiohttp==3.6.2
 appdirs==1.4.3
 asgiref==3.2.10
+async-timeout==3.0.1
+attrs==19.3.0
 backcall==0.2.0
 CacheControl==0.12.6
 certifi==2019.11.28
@@ -7,6 +10,8 @@ chardet==3.0.4
 colorama==0.4.3
 contextlib2==0.6.0
 decorator==4.4.2
+discord==1.0.1
+discord.py==1.3.4
 distlib==0.3.0
 distro==1.4.0
 Django==3.0.8
@@ -19,6 +24,7 @@ ipython-genutils==0.2.0
 jedi==0.17.1
 lockfile==0.12.2
 msgpack==0.6.2
+multidict==4.7.6
 packaging==20.3
 parso==0.7.0
 pep517==0.8.2
@@ -36,6 +42,9 @@ retrying==1.3.3
 six==1.14.0
 sqlparse==0.3.1
 traitlets==4.3.3
+typing-extensions==3.7.4.2
 urllib3==1.25.8
 wcwidth==0.2.5
 webencodings==0.5.1
+websockets==8.1
+yarl==1.5.0

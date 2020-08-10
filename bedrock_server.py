@@ -110,15 +110,8 @@ class Server():
     def set_weather_as_rain(self):
         self.process.sendline('weather rain')
 
-    def activate_daycycle(self):
-        self.process.sendline('weather rain')
-
     def clear_mobs(self):
         self.process.sendline('difficulty 0')
         self.process.sendline('difficulty 2')
 
 
-server = Server()
-server.run()
-if server.is_running():
-    print('Pyrock is successfully running!')

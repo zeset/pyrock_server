@@ -21,14 +21,6 @@ class Server():
     def run(self):
         process = pexpect.spawn(f"./{PATH_TO_SOFTWARE}", encoding='utf-8')
         try:
-            if not self.bot:
-                try:
-                    self.bot = RedstoneServer()
-                    self.bot.run(TOKEN)
-                    print('Redstone started.')
-                except BaseException:
-                    print('Redstone not started.')
-
             process.expect('Server started.', timeout=120)
             print(process.before)
             self.running = True

@@ -2,9 +2,8 @@ import sys
 import time
 import pexpect
 import threading
-from redstone import RedstoneServer, TOKEN
 
-PATH_TO_SOFTWARE = 'bedrock_server'
+PATH_TO_SOFTWARE = 'bedrock_server_og'
 
 LINEBREAK = r'.+'
 
@@ -105,5 +104,3 @@ class Server():
     def clear_mobs(self):
         self.process.sendline('difficulty 0')
         self.process.sendline('difficulty 2')
-
-

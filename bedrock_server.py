@@ -43,12 +43,13 @@ class Server():
 
     def restart(self):
         if self.running:
-            self.process.kill(0)
-            self.running = False
+            self.stop()
         self.run()
 
     def stop(self):
         self.process.kill(0)
+        self.process.wait()
+        self.running = False
 
     def arena_countdown(self):
         for seconds in range(1,self.prep_time)[::-1]:

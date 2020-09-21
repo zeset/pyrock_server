@@ -46,6 +46,7 @@ class RedstoneServer(discord.Client):
                 await message.channel.send('Mobs got cleared!')
 
             if message.content == f'{PREFIX}server restart':
+                await message.channel.send('Server restarted!')
                 self.pyrock_server.restart()
                 await message.channel.send('Server restarted!')
 

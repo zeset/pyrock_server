@@ -47,7 +47,7 @@ class Server():
         self.run()
 
     def stop(self):
-        self.process.kill(0)
+        self.process.kill(1)
         self.process.wait()
         self.running = False
 

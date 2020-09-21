@@ -24,7 +24,7 @@ class Server():
             print(process.before)
             self.running = True
             self.process = process
-        except:
+        except BaseException:
             self.running = False
 
     def is_running(self):
@@ -42,18 +42,13 @@ class Server():
             return str(output).strip()
 
     def restart(self):
-        try:
+        if self.running:
             self.process.kill(0)
             self.running = False
-            self.run()
-        except AttributeError:
-            pass
+        self.run()
 
     def stop(self):
-        try:
-            self.process.kill(0)
-        except AttributeError:
-            pass
+        self.process.kill(0)
 
     def arena_countdown(self):
         for seconds in range(1,self.prep_time)[::-1]:

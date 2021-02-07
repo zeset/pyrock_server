@@ -1,11 +1,11 @@
 import os
 import discord
 from bedrock_server import Server
-from mcstatus import MinecraftServer
+from mcipc.query import Client as MinecraftClient
 
 TOKEN = os.getenv('DISCORD_TOKEN', 'token not provided')
 SERVER_URL = os.getenv('SERVER_URL', SERVER_URL)
-SERVER_PORT = os.getenv('SERVER_PORT', 41666)
+SERVER_PORT = os.getenv('SERVER_PORT', 25565)
 
 PREFIX = '!'
 
@@ -59,20 +59,11 @@ class RedstoneServer(discord.Client):
                 else:
                     await message.channel.send('The server is currently down!')
 
-            if message.content == f'{PREFIX}player count':
-                server = MinecraftServer(SERVER_URL, SERVER_PORT)
-                player_count = server.status().players.online
-                await message.channel.send(f'The server has {player_count} players online')
-                
-            if message.content == f'{PREFIX}server latency':
-                server = MinecraftServer(SERVER_URL, SERVER_PORT)
-                latency = server.ping()
-                await message.channel.send(f'The server has {latency} players online')
-
-            if message.content == f'{PREFIX}player list':
-                server = MinecraftServer(SERVER_URL, SERVER_PORT)
-                player_list = server.query.players.names
-                await message.channel.send(f'The following players are connected: {"\n, ".join(query.players.names)}')
+            if message.content == f'{PREFIX}server stats':
+                with MinecraftClient('sv11.minehost.com.ar', 25565) as client:
+                    full_stats = client.stats(full=True)    # Get full stats.
+                    
+                await message.channel.send(full_stats)
 
         except BaseException as e:
             await message.channel.send(

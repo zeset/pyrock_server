@@ -48,4 +48,4 @@ wcwidth==0.2.5
 webencodings==0.5.1
 websockets==8.1
 yarl==1.5.0
-mcstatus
+mcipc

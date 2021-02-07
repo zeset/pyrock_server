@@ -62,13 +62,14 @@ class RedstoneServer(discord.Client):
             if message.content == f'{PREFIX}server stats':
                 q = Query(SERVER_URL, SERVER_URL)
                 server_data = q.query()
+                server_data = server_data.__dict__
                 await message.channel.send(
                     f'''Server stats are:
-                    Name: {vars(server_data)['SERVER_NAME']}
-                    Version: {vars(server_data)['GAME_VERSION']}
-                    Gamemode: {vars(server_data)['GAMEMODE']}
-                    Current Players: {vars(server_data)['NUM_PLAYERS']}
-                    Max Players: {vars(server_data)['MAX_PLAYERS']}
+                    Name: {server_data['SERVER_NAME']}
+                    Version: {server_data['GAME_VERSION']}
+                    Gamemode: {server_data['GAMEMODE']}
+                    Current Players: {server_data['NUM_PLAYERS']}
+                    Max Players: {server_data['MAX_PLAYERS']}
                     '''
                 )
 

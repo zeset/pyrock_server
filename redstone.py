@@ -1,8 +1,11 @@
 import os
 import discord
 from bedrock_server import Server
+from mcstatus import MinecraftServer
 
 TOKEN = os.getenv('DISCORD_TOKEN', 'token not provided')
+SERVER_URL = os.getenv('SERVER_URL', SERVER_URL)
+SERVER_PORT = os.getenv('SERVER_PORT', 41666)
 
 PREFIX = '!'
 
@@ -55,6 +58,22 @@ class RedstoneServer(discord.Client):
                     await message.channel.send('The server is currently up!')
                 else:
                     await message.channel.send('The server is currently down!')
+
+            if message.content == f'{PREFIX}player count':
+                server = MinecraftServer(SERVER_URL, SERVER_PORT)
+                player_count = server.status().players.online
+                await message.channel.send(f'The server has {player_count} players online')
+                
+            if message.content == f'{PREFIX}server latency':
+                server = MinecraftServer(SERVER_URL, SERVER_PORT)
+                latency = server.ping()
+                await message.channel.send(f'The server has {latency} players online')
+
+            if message.content == f'{PREFIX}player list':
+                server = MinecraftServer(SERVER_URL, SERVER_PORT)
+                player_list = server.query.players.names
+                await message.channel.send(f'The following players are connected: {"\n, ".join(query.players.names)}')
+
         except BaseException as e:
             await message.channel.send(
                 f'The last command failed with status: {repr(e)}'
@@ -62,3 +81,11 @@ class RedstoneServer(discord.Client):
 
 client = RedstoneServer()
 client.run(TOKEN)
+
+
+server = MinecraftServer.lookup("mc.hypixel.net")
+status = server.status()
+print("The server has {0} players and replied in {1} ms".format(status.players.online, status.latency))
+
+latency = server.ping()
+print("The server replied in {0} ms".format(latency))

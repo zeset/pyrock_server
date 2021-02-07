@@ -64,17 +64,14 @@ class RedstoneServer(discord.Client):
                 server_data = q.query()
                 server_data = server_data.__dict__
                 await message.channel.send(
-                    f'''
-                    ```sh
+                    f'''```apache
                     Server stats:
                     -----
                     Name: {server_data['SERVER_NAME']}
                     Version: {server_data['GAME_VERSION']}
                     Gamemode: {server_data['GAMEMODE']}
                     Current Players: {server_data['NUM_PLAYERS']}
-                    Max Players: {server_data['MAX_PLAYERS']}
-                    ```
-                    '''
+                    Max Players: {server_data['MAX_PLAYERS']}```'''
                 )
 
 

@@ -1,11 +1,11 @@
 import os
 import discord
 from bedrock_server import Server
-from mcipc.query import Client as MinecraftClient
+from py_mcpe_stats import Query
 
 TOKEN = os.getenv('DISCORD_TOKEN', 'token not provided')
-SERVER_URL = os.getenv('SERVER_URL', SERVER_URL)
-SERVER_PORT = os.getenv('SERVER_PORT', 25565)
+SERVER_URL = os.getenv('SERVER_URL', 'sv11.minehost.com.ar')
+SERVER_PORT = os.getenv('SERVER_PORT', 41666)
 
 PREFIX = '!'
 
@@ -60,10 +60,18 @@ class RedstoneServer(discord.Client):
                     await message.channel.send('The server is currently down!')
 
             if message.content == f'{PREFIX}server stats':
-                with MinecraftClient('sv11.minehost.com.ar', 25565) as client:
-                    full_stats = client.stats(full=True)    # Get full stats.
-                    
-                await message.channel.send(full_stats)
+                q = Query(SERVER_URL, SERVER_URL)
+                server_data = q.query()
+                await message.channel.send(
+                    f'''Server stats are:
+                    Name: {vars(server_data)['SERVER_NAME']}
+                    Version: {vars(server_data)['GAME_VERSION']}
+                    Gamemode: {vars(server_data)['GAMEMODE']}
+                    Current Players: {vars(server_data)['NUM_PLAYERS']}
+                    Max Players: {vars(server_data)['MAX_PLAYERS']}
+                    '''
+                )
+
 
         except BaseException as e:
             await message.channel.send(
@@ -72,11 +80,3 @@ class RedstoneServer(discord.Client):
 
 client = RedstoneServer()
 client.run(TOKEN)
-
-
-server = MinecraftServer.lookup("mc.hypixel.net")
-status = server.status()
-print("The server has {0} players and replied in {1} ms".format(status.players.online, status.latency))
-
-latency = server.ping()
-print("The server replied in {0} ms".format(latency))

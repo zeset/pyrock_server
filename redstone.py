@@ -60,16 +60,20 @@ class RedstoneServer(discord.Client):
                     await message.channel.send('The server is currently down!')
 
             if message.content == f'{PREFIX}server stats':
-                q = Query(SERVER_URL, SERVER_URL)
+                q = Query(SERVER_URL, SERVER_PORT)
                 server_data = q.query()
                 server_data = server_data.__dict__
                 await message.channel.send(
-                    f'''Server stats are:
+                    f'''
+                    ```sh
+                    Server stats:
+                    -----
                     Name: {server_data['SERVER_NAME']}
                     Version: {server_data['GAME_VERSION']}
                     Gamemode: {server_data['GAMEMODE']}
                     Current Players: {server_data['NUM_PLAYERS']}
                     Max Players: {server_data['MAX_PLAYERS']}
+                    ```
                     '''
                 )
 
